@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ubuntu-pod3
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  selector:
+    matchLabels:
+      app: root
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: ubuntu
+  project: default
+  source:
+    path: apps
+    repoURL: https://github.com/hellebore74/helm-chart3.git
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: false
+      
